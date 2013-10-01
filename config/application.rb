@@ -58,5 +58,13 @@ module Followhn
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+
+    # Customize generators
+    config.generators do |g|
+      g.test_framework     false
+      g.javascript_engine  :js
+      g.stylesheet_engine  :sass
+      g.helper             false
+    end
   end
 end
