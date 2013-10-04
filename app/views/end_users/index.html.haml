@@ -1,2 +1,13 @@
-%h1 EndUsers#index
-%p Find me in app/views/end_users/index.html.haml
+%h3 Add User
+= render 'users/form'
+
+%h3 Following Users
+%ul
+  - @users.each do |u|
+    %li= u.username
+
+%h3 Posts
+%ul
+- @users.each do |u|
+  - u.posts.each do |p|
+    = render "posts/post", post: p

@@ -5,5 +5,35 @@
     = stylesheet_link_tag    "application", :media => "all"
     = javascript_include_tag "application"
     = csrf_meta_tags
+    %meta{name: "viewport", content: "width=device-width, initial-scale=1.0"}
   %body
-    = yield
+    .container
+      .row.row-offcanvas.row-offcanvas-right
+        .col-xs-12.col-sm-9
+          = yield
+        #sidebar.col-xs-6.col-sm-3.sidebar-offcanvas{role: "navigation"}
+          .well.sidebar-nav
+            %ul.nav
+              %li Sidebar
+              %li.active
+                %a{href: "#"} Link
+              %li
+                %a{href: "#"} Link
+              %li
+                %a{href: "#"} Link
+              %li Sidebar
+              %li
+                %a{href: "#"} Link
+              %li
+                %a{href: "#"} Link
+              %li
+                %a{href: "#"} Link
+              %li Sidebar
+              %li
+                %a{href: "#"} Link
+              %li
+                %a{href: "#"} Link
+          / /.well
+        / /span
+      / /row
+      %hr/
