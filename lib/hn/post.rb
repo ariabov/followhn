@@ -1,12 +1,12 @@
 module HN
   class Post
     def self.prepare_query(username)
-      query = "http://api.thriftdb.com/api.hnsearch.com/items/_search?"
+      query  = "http://api.thriftdb.com/api.hnsearch.com/items/_search?"
       query += {
         "filter[fields][username]" => prepare_username(username),
         "limit"                    => 20
       }.collect{|k, v| "#{k}=#{v}"}.join('&')
-      query 
+      query
     end
 
     def self.for_username(username)
