@@ -1,0 +1,9 @@
+- flash.each do |name, msg|
+  - if name == :alert
+    .alert.alert-danger
+      %i.icon-warning-sign
+      = msg
+  - else
+    .alert.alert-success
+      %i.icon-ok-sign
+      = msg
