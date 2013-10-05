@@ -43,12 +43,16 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
 
     respond_to do |format|
-      if @user.save
-        format.html { redirect_to root_path, notice: 'User was successfully created.' }
-        # format.json { render json: @user, status: :created, location: @user }
-      else
-        format.html { redirect_to root_path, alert:  @user.errors[:base].first } #
-        # format.json { render json: @user.errors, status: :unprocessable_entity }
+      begin
+        if @user.save
+          format.html { redirect_to root_path, notice: 'User was successfully created.' }
+          # format.json { render json: @user, status: :created, location: @user }
+        else
+          format.html { redirect_to root_path, alert:  @user.errors[:base].first } #
+          # format.json { render json: @user.errors, status: :unprocessable_entity }
+        end
+      rescue ActiveRecord::RecordNotUnique
+        format.html { redirect_to root_path,   alert:  "User with name \"#{@user.username}\" already exists" }
       end
     end
   end
