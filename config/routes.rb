@@ -1,7 +1,7 @@
 Followhn::Application.routes.draw do
   root :to => 'end_users#index'
 
-  resources :users
+  resources :users, only: [:destroy, :create]
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
