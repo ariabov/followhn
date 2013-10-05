@@ -8,6 +8,5 @@
 
 %h3 Posts
 %ul
-- @users.each do |u|
-  - u.posts.each do |p|
-    = render "posts/post", post: p
+- @posts.each do |p|
+  = render "posts/post", post: p

@@ -7,6 +7,13 @@ class Post
     end.sort_by{|p| p.created_at}.reverse
   end
 
+  def self.for_users
+    users = User.scoped
+    HN::Post.for_username(users.collect(&:username)).collect do |p|
+      Post.new(p, users.select{|u| u.username == p[:username]}.first)
+    end.sort_by{|p| p.created_at}.reverse
+  end
+
   def initialize(hash, user)
     @type       = hash[:type]
     @text       = hash[:text]
