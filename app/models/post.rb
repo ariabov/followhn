@@ -1,15 +1,15 @@
 class Post
   attr_reader :user, :type, :text, :title, :created_at
 
-  def self.for_user(user)
-    HN::Post.for_username(user.username).collect do |p|
-      Post.new(p, user)
-    end.sort_by{|p| p.created_at}.reverse
-  end
+  # def self.for_user(user)
+  #   HN::Post.for_username(user.username).collect do |p|
+  #     Post.new(p, user)
+  #   end.sort_by{|p| p.created_at}.reverse
+  # end
 
   def self.for_users
     users = User.scoped
-    HN::Post.for_username(users.collect(&:username)).collect do |p|
+    HN::PostSearch.new({username: users.collect(&:username)}).for_username.collect do |p|
       Post.new(p, users.select{|u| u.username == p[:username]}.first)
     end.sort_by{|p| p.created_at}.reverse
   end
