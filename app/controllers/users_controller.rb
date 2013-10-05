@@ -15,10 +15,11 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
 
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @user }
-    end
+    render text: 'Maintenance', status: 503
+    # respond_to do |format|
+    #   # format.html # show.html.erb
+    #   format.json { render status: 404 } # json: @user
+    # end
   end
 
   # GET /users/new

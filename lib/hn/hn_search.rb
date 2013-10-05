@@ -6,9 +6,21 @@ class HNSearch
   end
 
   def request_data
-    r = Mechanize.new.get(self.prepare_query)
-    JSON.parse(r.body)["results"].collect do |item|
-      item["item"].merge(created_at: item["item"]["create_ts"]).symbolize_keys
+    begin
+      begin
+        r = Mechanize.new.get(self.prepare_query)
+        JSON.parse(r.body)["results"].collect do |item|
+          item["item"].merge(created_at: item["item"]["create_ts"]).symbolize_keys
+        end
+      rescue Mechanize::ResponseCodeError => e
+        Rails.logger.error("#{e}: #{e.backtrace}")
+        raise HNSearchServiceUnavailable if e.inspect.first(3).to_i == 503
+        raise HNSearchException
+      end
+    rescue HNSearchServiceUnavailable
+      p 'HNSearchServiceUnavailable'
+    rescue HNSearchException
+      p 'HNSearchException'
     end
   end
 
@@ -16,3 +28,6 @@ class HNSearch
     raise MustBeDefinedInSubclass
   end
 end
+
+class HNSearchException            < StandardError; end
+class HNSearchServiceUnavailable   < HNSearchException; end
