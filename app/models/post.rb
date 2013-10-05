@@ -9,7 +9,7 @@ class Post
 
   def self.for_users
     users = User.scoped
-    HN::PostSearch.new({username: users.collect(&:username)}).for_username.collect do |p|
+    HN::PostSearch.new({username: users.collect(&:username)}).get_posts.collect do |p|
       Post.new(p, users.select{|u| u.username == p[:username]}.first)
     end.sort_by{|p| p.created_at}.reverse
   end
