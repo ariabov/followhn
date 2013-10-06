@@ -15,6 +15,5 @@
         .col-xs-12.col-sm-9
           = render 'layouts/messages'
           = yield
-        #sidebar.col-xs-6.col-sm-3.sidebar-offcanvas{role: "navigation"}
-          .well.sidebar-nav
-            = yield :sidebar
+        .col-xs-6.col-sm-3
+          = yield :sidebar

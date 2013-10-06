@@ -1,12 +1,11 @@
 = render 'users/form'
 
 - content_for :sidebar do
-  %h3 
-    %i.icon-user
-    Following Users
-  %ul
+  %h3 Following Users
+  %ul.list-group.users
     - @users.each do |u|
-      %li
+      %li.list-group-item
+        %i.icon-user
         = u.username
         = link_to 'Unfollow', u, method: :delete, confirm: "Are you sure you want to stop following \"#{u.username}\""
 
