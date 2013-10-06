@@ -1,4 +1,6 @@
-= link_to 'Sign Out', destroy_end_user_session_path, method: :delete
+= link_to destroy_end_user_session_path, method: :delete, class: 'btn btn-default pull-right' do
+  %i.icon-signout
+  Sign Out
 
 = render 'users/form'
 

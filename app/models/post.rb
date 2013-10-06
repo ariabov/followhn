@@ -1,5 +1,6 @@
 class Post
-  attr_reader :user, :type, :text, :title, :created_at
+  attr_reader :user, :type, :text, :title, :created_at,
+              :parent_id, :parent_title
 
   def self.for_users(ids=[])
     users = User.where(id: ids)
@@ -9,11 +10,14 @@ class Post
   end
 
   def initialize(hash, user)
-    @type       = hash[:type]
-    @text       = hash[:text]
-    @title      = hash[:title]
-    @created_at = Time.parse(hash[:created_at])
-    @user       = user
+    p hash
+    @type          = hash[:type]
+    @text          = hash[:text]
+    @title         = hash[:title]
+    @parent_id     = hash[:discussion]["id"] if hash[:discussion]
+    @parent_title  = hash[:discussion]["title"] if hash[:discussion]
+    @created_at    = Time.parse(hash[:created_at])
+    @user          = user
   end
 
   def is_comment?
@@ -26,5 +30,9 @@ class Post
 
   def created_at_date
     created_at.strftime("%-m/%-d/%Y")
+  end
+
+  def url
+    ["https://news.ycombinator.com/item?id=", parent_id].join('')
   end
 end

@@ -1,7 +1,11 @@
 .image
-  %i.icon-comments-alt
+  %i.main-icon.icon-comments-alt
 .text
   .l1
     %strong= post.user
     .pull-right= post.created_at_date
-  = raw post.text
+  .l2
+    = raw post.text
+  .l3
+    %i.icon-globe
+    = link_to post.parent_title, post.url, target: '_blank'
