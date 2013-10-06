@@ -8,6 +8,14 @@ class User < ActiveRecord::Base
     errors[:base] << "The user with name \"#{username}\" does not exist" if invalid
   end
 
+  after_destroy :update_cache
+  after_create  :update_cache
+
+  def update_cache
+    Post.clear_cache
+  end
+
+
   def posts
     Post.for_user(self)
   end

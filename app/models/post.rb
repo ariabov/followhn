@@ -1,11 +1,15 @@
 class Post
   attr_reader :user, :type, :text, :title, :created_at
 
-  # def self.for_user(user)
-  #   HN::Post.for_username(user.username).collect do |p|
-  #     Post.new(p, user)
-  #   end.sort_by{|p| p.created_at}.reverse
-  # end
+  def self.cached_posts
+    Rails.cache.fetch([1, "posts_for_users"], expires_in: 2.minutes) do
+      for_users
+    end
+  end
+
+  def self.clear_cache
+    Rails.cache.delete([1, "posts_for_users"])
+  end
 
   def self.for_users
     users = User.scoped
