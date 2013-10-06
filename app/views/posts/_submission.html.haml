@@ -6,4 +6,4 @@
     .pull-right= post.created_at_date
   .l2
     %strong= post.title
-  = post.text if post.text
+  = raw post.text if post.text
