@@ -1,4 +1,6 @@
 Followhn::Application.routes.draw do
+  devise_for :end_users
+
   root :to => 'end_users#index'
 
   resources :users, only: [:destroy, :create, :show]

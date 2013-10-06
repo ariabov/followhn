@@ -11,6 +11,7 @@ gem 'bootstrap-sass-rails'
 gem 'psych'
 gem 'mechanize'
 gem 'font-awesome-sass-rails'
+gem 'devise'
 
 # Gems used only for assets and not required
 # in production environments by default.

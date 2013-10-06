@@ -1,3 +1,5 @@
+= link_to 'Sign Out', destroy_end_user_session_path, method: :delete
+
 = render 'users/form'
 
 - content_for :sidebar do
@@ -12,3 +14,4 @@
 %h3 Timeline
 - @posts.each do |p|
   = render "posts/post", post: p
+
