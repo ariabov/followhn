@@ -1,7 +1,7 @@
 class EndUsersController < AuthenticationController#ApplicationController
   def index
-    @users = User.all
+    @users = current_end_user.users
     @user  = User.new
-    @posts = Post.cached_posts
+    @posts = current_end_user.cached_posts
   end
 end
