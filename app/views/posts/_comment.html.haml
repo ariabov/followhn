@@ -1,2 +1,7 @@
-%li.icon-comments-alt
-= post.text
+.image
+  %i.icon-comments-alt
+.text
+  .l1
+    %strong= post.user
+    .pull-right= post.created_at_date
+  = post.text

@@ -1,6 +1,4 @@
 .post-container
-  = post.user
-  = post.created_at_date
   = render ('posts/' + (post.is_comment? ? 'comment' : 'submission')), post: post
 
 %hr
