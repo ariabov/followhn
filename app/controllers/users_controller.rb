@@ -1,4 +1,4 @@
-class UsersController < ApplicationController
+class UsersController < AuthenticationController
   # GET /users
   # GET /users.json
   # def index
@@ -47,14 +47,14 @@ class UsersController < ApplicationController
       begin
         if @user.save
           current_end_user.users << @user
-          format.html { redirect_to root_path, notice: 'User was successfully created.' }
+          format.html { redirect_to root_path, notice: "You are now following \"#{@user.username}\"" }
           # format.json { render json: @user, status: :created, location: @user }
         else
           format.html { redirect_to root_path, alert:  @user.errors[:base].first } #
           # format.json { render json: @user.errors, status: :unprocessable_entity }
         end
       rescue ActiveRecord::RecordNotUnique
-        format.html { redirect_to root_path,   alert:  "User with name \"#{@user.username}\" already exists" }
+        format.html { redirect_to root_path,   alert:  "You are already following user \"#{@user.username}\"" }
       end
     end
   end

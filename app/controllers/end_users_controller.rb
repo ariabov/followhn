@@ -1,4 +1,4 @@
-class EndUsersController < AuthenticationController#ApplicationController
+class EndUsersController < AuthenticationController
   def index
     @users = current_end_user.users
     @user  = User.new
