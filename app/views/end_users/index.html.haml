@@ -13,7 +13,10 @@
         = u.username
         = link_to 'Unfollow', u, method: :delete, confirm: "Are you sure you want to stop following \"#{u.username}\""
 
-%h3 Timeline
+%h3
+  Timeline
+  .pull-right
+    = "from #{@timeline_start} to now"
 - @posts.each do |p|
   = render "posts/post", post: p
 
