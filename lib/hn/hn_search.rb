@@ -36,8 +36,6 @@ class HNSearch
         raise HNSearchNotFound           if e.inspect.first(3).to_i == 404
         raise HNSearchException
       end
-    rescue HNSearchServiceUnavailable
-      p 'HNSearchServiceUnavailable'
     rescue HNSearchNotFound
       nil
     rescue HNSearchException

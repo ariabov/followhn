@@ -12,15 +12,14 @@ class UsersController < AuthenticationController
 
   # GET /users/1
   # GET /users/1.json
-  def show
-    @user = User.find(params[:id])
+  # def show
+  #   @user = User.find(params[:id])
 
-    render text: 'Maintenance', status: 503
     # respond_to do |format|
     #   # format.html # show.html.erb
     #   format.json { render status: 404 } # json: @user
     # end
-  end
+  # end
 
   # GET /users/new
   # GET /users/new.json
