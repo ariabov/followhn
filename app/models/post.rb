@@ -1,6 +1,6 @@
 class Post
   attr_reader :user, :type, :text, :title, :created_at,
-              :parent_id, :parent_title
+              :parent_id, :parent_title, :parent_object
 
   def self.for_users(ids=[])
     users = User.where(id: ids)
@@ -9,13 +9,14 @@ class Post
     end.sort_by{|p| p.created_at}.reverse
   end
 
-  def initialize(hash, user)
-    p hash
+  def initialize(hash, user, lookup_parent=true)
+    return if hash.blank?
     @type          = hash[:type]
     @text          = hash[:text]
     @title         = hash[:title]
     @parent_id     = hash[:discussion]["id"] if hash[:discussion]
     @parent_title  = hash[:discussion]["title"] if hash[:discussion]
+    @parent_object = Post.new(HN::PostSearch.new({parent_sigid: hash[:parent_sigid]}).get_post, nil, false) if hash[:parent_sigid] && lookup_parent
     @created_at    = Time.parse(hash[:created_at])
     @user          = user
   end
