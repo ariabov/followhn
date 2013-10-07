@@ -7,7 +7,7 @@ module HN
     end
 
     def get_users
-      request_data
+      bulk_request
     end
 
     protected
@@ -16,7 +16,7 @@ module HN
       'users'
     end
 
-    def prepare_query
+    def prepare_bulk_query
       settings = {
         "filter[fields][username]" => username,
         "limit"                    => 1

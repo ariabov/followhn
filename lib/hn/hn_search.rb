@@ -1,5 +1,5 @@
 class HNSearch
-  def prepare_query(settings)
+  def prepare_bulk_query(settings)
     query  = "http://api.thriftdb.com/api.hnsearch.com/#{self.collection_name}/_search?"
     query += settings.collect{|k, v| "#{k}=#{v}"}.join('&')
     query
@@ -9,9 +9,9 @@ class HNSearch
     query = "http://api.thriftdb.com/api.hnsearch.com/#{self.collection_name}/#{self.id}"
   end
 
-  def request_data
+  def bulk_request
     self.send_request do
-      r = Mechanize.new.get(self.prepare_query)
+      r = Mechanize.new.get(self.prepare_bulk_query)
       JSON.parse(r.body)["results"].collect do |item|
         item["item"].merge(created_at: item["item"]["create_ts"]).symbolize_keys
       end
@@ -20,7 +20,7 @@ class HNSearch
 
   def single_request
     self.send_request do
-      r = Mechanize.new.get(self.prepare_query).body
+      r = Mechanize.new.get(self.prepare_single_query).body
       j = JSON.parse(r)
       j.merge(created_at: j["create_ts"]).symbolize_keys
     end
@@ -46,6 +46,14 @@ class HNSearch
   end
 
   def collection_name
+    raise MustBeDefinedInSubclass
+  end
+
+  def id
+    raise MustBeDefinedInSubclass
+  end
+
+  def prepare_single_query
     raise MustBeDefinedInSubclass
   end
 end

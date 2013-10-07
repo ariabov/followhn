@@ -10,7 +10,7 @@ module HN
     end
 
     def get_posts
-      request_data
+      bulk_request
     end
 
     def get_post
@@ -27,17 +27,19 @@ module HN
       'items'
     end
 
-    def prepare_query
-      return self.individual_query if parent_sigid
-
+    def prepare_bulk_query
       from_date = FROM_DATE.iso8601(0)
       settings = {
         "filter[fields][username]"   => username,
-        "limit"                      => 100,
+        "limit"                      => 20,
         "filter[fields][create_ts]"  => "[#{from_date} TO *]",
         "sortby"                     => "create_ts desc"
       }
       super(settings)
+    end
+
+    def prepare_single_query
+      individual_query 
     end
 
     def prepare_username(usernames)

@@ -6,8 +6,18 @@
     .pull-right= post.created_at_date
   .l2
     = raw post.text
-  .l3
+  - if post.parent_object
+    .response
+      .image
+        %i.main-icon.icon-quote-left
+      .text
+        - parent_text = post.parent_object.text || post.parent_object.title
+        = raw truncate(parent_text, length: 300) if parent_text
+
+.link.pull-right
+  = link_to post.url, target: '_blank' do
     %i.icon-globe
-    = link_to post.parent_title, post.url, target: '_blank'
-  .l4
-    = post.parent_object.text
+    View on HackerNews
+    = post.parent_title
+
+.clear
